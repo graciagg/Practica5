@@ -60,13 +60,13 @@ subplot(p1,p2,p3,p4, shareX = FALSE, shareY = TRUE, titleY = TRUE, titleX = TRUE
 
 Analyse the influence of **days since 2011, temperature, humidity** and **wind speed** on the predicted bike counts.
 
-Respecto a la primera variable, Days since 2011, podemos observar que a medida que pasan los días desde 2011 la venta de bicicletas aumenta. No obstante, si pasan de 150 a 250 días no afecta a dicha venta. Podemos observar que a partir de 400 días las ventas se disparan, es decir, aumentan considerablemente hasta llegar a 600 días, donde las ventas empiezan a disminuir.
+Respecto a la primera variable, Days since 2011, podemos observar que a medida que pasan los días desde 2011 el alquiler de bicicletas aumenta. No obstante, si pasan de 150 a 250 días no afecta a dicho alquiler. Podemos observar que a partir de 400 días el número de bicis alquiladas se dispara, es decir, aumenta considerablemente hasta llegar a 600 días, donde empieza a disminuir.
 
-En cuanto a la temperatura, a medida que aumenta también aumenta la venta de bicicletas. Este crecimiento se observa hasta los 20 grados, temperatura a partir de la cual la venta empieza a disminuir. Con 20 grados, la venta predicha es de 5000 bicicletas.
+En cuanto a la temperatura, a medida que aumenta también aumenta el alquiler de bicicletas. Este crecimiento se observa hasta los 20 grados, temperatura a partir de la cual el alquiler empieza a disminuir. Con 20 grados, el número de bicis alquiladas predicho es 5000.
 
-Por lo que se refiere a la humedad, esta variable no afecta a las ventas si su valor está entre 0% y 50%. No obstante, si la humedad supera el 50% las ventas decrecen. A medida que la humedad aumenta, las ventas decrecen proporcionalmente.
+Por lo que se refiere a la humedad, esta variable no afecta al volumen del alquiler si su valor está entre 0% y 50%. No obstante, si la humedad supera el 50% el número de bicis alquiladas decrece. A medida que la humedad aumenta, el alquiler decrece proporcionalmente.
 
-Por último, tenemos la variable Wind speed. Esta es la velocidad del viento, la cual afecta negativamente a las ventas. A medida que aumenta la velocidad del tiempo, las ventas decrecen, hasta llegar a 20 km/hora donde las ventas se mantienen constantes, en torno a 4000 bicicletas.
+Por último, tenemos la variable Wind speed. Esta es la velocidad del viento, la cual afecta negativamente al alquiler. A medida que aumenta la velocidad del tiempo, las bicis alquiladas decrecen, hasta llegar a 20 km/hora donde la cantidad de bicicletas alquiladas se mantiene constante, en torno a 4000 bicicletas.
 
 
 
@@ -80,16 +80,6 @@ BE CAREFUL: due to the size, extract a set of random samples from the BBDD befor
 Show the density distribution of both input features with the 2D plot as shown in the class slides. 
 
 TIP: Use geom_tile() to generate the 2D plot. Set width and height to avoid holes. 
-
-```{r}
-
-```
-
-
-
-## QUESTION:
-
-Interpret the results.
 
 
 ```{r}
@@ -109,7 +99,15 @@ for(i in 1:nrow(th)){
   th[["p"]][i] <- sum(sal) / nr
 }
 
+ggplot(th, aes(x = temp, y = hum, fill = p)) + geom_tile(width=18 ,height=15) + geom_rug()
+
 ```
+
+## QUESTION:
+
+Interpret the results.
+
+El gráfico muestra la predicción de alquiler de bicis según la temperatura y la humedad. Podemos observar que se alquilan más bicis cuando la humedad es baja y la temperatura alta. A menor temperatura y mayor humedad, el número de bicis alquiladas disminuye. Esto confirma las conclusiones obtenidas del ejercicio anterior, es decir, que el aumento de la temperatura afecta positivamente a la cantidad de bicis alquiladas y el aumento de humedad afecta negativamente.
 
 
 ## EXERCISE:
