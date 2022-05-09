@@ -7,10 +7,6 @@ output: html_notebook
 
 Apply PDP to the regression example of predicting bike rentals. Fit a random forest approximation for the prediction of bike rentals (**cnt**). Use the partial dependence plot to visualize the relationships the model learned. Use the slides shown in class as model.  
 
-## QUESTION:
-
-Analyse the influence of **days since 2011, temperature, humidity** and **wind speed** on the predicted bike counts.
-
 
 ```{r}
 library(dplyr)
@@ -51,6 +47,29 @@ for(c in names(results)[1:4])
 
 
 ```
+```{r}
+p1 <- ggplot(days_since, aes(x=days_since_2011, y=results$days_since_2011)) + geom_line() + geom_rug(sides="b") + ylim(0,6000) + xlab("Days since 2011") + ylab("Prediction")
+p2 <- ggplot(days_since, aes(x=temp, y=results$temp)) + geom_line() + geom_rug(sides="b") + ylim(0,6000) + theme(axis.text.y = element_blank()) + xlab("Temperature")
+p3 <- ggplot(days_since, aes(x=hum, y=results$hum)) + geom_line() + geom_rug(sides="b") + ylim(0,6000) + theme(axis.text.y = element_blank()) + xlab("Humidity")
+p4 <- ggplot(days_since, aes(x=windspeed, y=results$windspeed)) + geom_line() + geom_rug(sides="b") + ylim(0,6000) + theme(axis.text.y = element_blank()) + xlab("Wind speed")
+
+subplot(p1,p2,p3,p4, shareX = FALSE, shareY = TRUE, titleY = TRUE, titleX = TRUE)
+```
+
+## QUESTION:
+
+Analyse the influence of **days since 2011, temperature, humidity** and **wind speed** on the predicted bike counts.
+
+Respecto a la primera variable, Days since 2011, podemos observar que a medida que pasan los días desde 2011 la venta de bicicletas aumenta. No obstante, si pasan de 150 a 250 días no afecta a dicha venta. Podemos observar que a partir de 400 días las ventas se disparan, es decir, aumentan considerablemente hasta llegar a 600 días, donde las ventas empiezan a disminuir.
+
+En cuanto a la temperatura, a medida que aumenta también aumenta la venta de bicicletas. Este crecimiento se observa hasta los 20 grados, temperatura a partir de la cual la venta empieza a disminuir. Con 20 grados, la venta predicha es de 5000 bicicletas.
+
+Por lo que se refiere a la humedad, esta variable no afecta a las ventas si su valor está entre 0% y 50%. No obstante, si la humedad supera el 50% las ventas decrecen. A medida que la humedad aumenta, las ventas decrecen proporcionalmente.
+
+Por último, tenemos la variable Wind speed. Esta es la velocidad del viento, la cual afecta negativamente a las ventas. A medida que aumenta la velocidad del tiempo, las ventas decrecen, hasta llegar a 20 km/hora donde las ventas se mantienen constantes, en torno a 4000 bicicletas.
+
+
+
 
 ## EXERCISE:
 
@@ -61,6 +80,12 @@ BE CAREFUL: due to the size, extract a set of random samples from the BBDD befor
 Show the density distribution of both input features with the 2D plot as shown in the class slides. 
 
 TIP: Use geom_tile() to generate the 2D plot. Set width and height to avoid holes. 
+
+```{r}
+
+```
+
+
 
 ## QUESTION:
 
