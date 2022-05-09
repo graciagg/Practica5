@@ -1,6 +1,9 @@
 ---
-title: "XAI 3: Model-Agnostic methods"
-output: html_notebook
+title: 'XAI 3: Model-Agnostic methods'
+author: "Marta de la Cuadra Lozano, Gracia Gimeno Almiñana y Pilar Pérez Argilés"
+output:
+  pdf_document: default
+  html_notebook: default
 ---
 
 ## EXERCISE:
@@ -117,10 +120,6 @@ Use the partial dependence plot to visualize the relationships the model learned
 
 BE CAREFUL: due to the size, extract a set of random samples from the BBDD before generating the data for the Partial Dependency Plot. 
 
-## QUESTION:
-
-Analyse the influence of **bedrooms, bathrooms, sqft_living** and **floors** on the predicted price.
-
 
 ```{r}
 
@@ -144,5 +143,22 @@ for(c in names(results)[1:4])
   }
 }
 
+
+p1 <- ggplot(sampled, aes(x=bedrooms, y=results$bedrooms)) + geom_line() + geom_rug(sides="b") + xlab("Bedrooms")
+p2 <- ggplot(sampled, aes(x=bathrooms, y=results$bathrooms)) + geom_line() + geom_rug(sides="b") + xlab("Bathrooms")
+p3 <- ggplot(sampled, aes(x=sqft_living, y=results$sqft_living)) + geom_line() + geom_rug(sides="b") + xlab("Sqft living")
+p4 <- ggplot(sampled, aes(x=floors, y=results$floors)) + geom_line() + geom_rug(sides="b") + xlab("Floors")
+
+subplot(p1,p2,p3,p4, shareX = FALSE, shareY = FALSE, titleY = FALSE, titleX = TRUE)
 ```
+## QUESTION:
+
+Analyse the influence of **bedrooms, bathrooms, sqft_living** and **floors** on the predicted price.
+
+Según el primer gráfico, las viviendas con 2 y 5 habitaciones tienen mayor precio que las demás. Las de 3 habitaciones son las más baratas. Esto puede ser porque los datos con los que hemos hecho la predicción son un subconjunto aleatorio de una muestra mayor, y por tanto pueden cambiar los resultados si se cambia la muestra o si se considera el total.
+El número de baños, los metros cuadrados y el número de plantas están relacionados positivamente con el precio. A medida que aumenta su valor, también aumenta el precio de la vivienda. Hay una diferencia significativa entre el precio de las casas con 4 y 5 baños, siendo este último mucho mayor. En cuanto a las plantas, la diferencia de precio es mucho mayor entre las casas con 2 y 3 pisos con respecto a la diferencia entre 1 y 2 plantas.
+
+
+
+
 
